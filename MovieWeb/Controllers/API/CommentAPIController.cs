@@ -13,7 +13,13 @@ namespace WebPhimBTL.Controllers.APIController
     [ApiController]
     public class CommentAPIController : ControllerBase
     {
-        MovieDbContext dbphimContext = new MovieDbContext();
+        private readonly MovieDbContext dbphimContext;
+
+        public CommentAPIController(MovieDbContext context)
+        {
+            dbphimContext = context;
+        }
+
         [HttpGet()]
         public IEnumerable<CommentAPI> Get([FromQuery] int maphim)
         {
@@ -53,11 +59,11 @@ namespace WebPhimBTL.Controllers.APIController
         [HttpPut]
         public StringResult Put([FromBody] StringResult content, [FromQuery] int cmtCode)
         {
-            string connectionString = "Data Source=PC\\ManhQuang;Initial Catalog=MovieDB1;Timeout=30;Integrated Security=True;Encrypt=False";
+            string connectionString = dbphimContext.Database.GetConnectionString()!;
 
-            SqlConnection sql = new SqlConnection(connectionString);
+            using SqlConnection sql = new SqlConnection(connectionString);
             sql.Open();
-            SqlCommand sqlCommand = new SqlCommand("putcomment", sql);
+            using SqlCommand sqlCommand = new SqlCommand("putcomment", sql);
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.Parameters.AddWithValue("@content", content.Result);
             sqlCommand.Parameters.AddWithValue("@cmtCode", cmtCode);
@@ -67,11 +73,11 @@ namespace WebPhimBTL.Controllers.APIController
         [HttpDelete]
         public StringResult Delete([FromQuery] int cmtCode)
         {
-            string connectionString = "Data Source=PC\\ManhQuang;Initial Catalog=MovieDB1;Timeout=30;Integrated Security=True;Encrypt=False";
+            string connectionString = dbphimContext.Database.GetConnectionString()!;
 
-            SqlConnection sql = new SqlConnection(connectionString);
+            using SqlConnection sql = new SqlConnection(connectionString);
             sql.Open();
-            SqlCommand sqlCommand = new SqlCommand("Deletecomment", sql);
+            using SqlCommand sqlCommand = new SqlCommand("Deletecomment", sql);
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.Parameters.AddWithValue("@cmtCode", cmtCode);
             sqlCommand.ExecuteNonQuery();
@@ -80,11 +86,11 @@ namespace WebPhimBTL.Controllers.APIController
         [HttpGet("numcmt")]
         public async Task<StringResult> GetNumCmt([FromQuery] int maphim)
         {
-            string connectionString = "Data Source=PC\\ManhQuang;Initial Catalog=MovieDB1;Timeout=30;Integrated Security=True;Encrypt=False";
+            string connectionString = dbphimContext.Database.GetConnectionString()!;
 
-            SqlConnection sql = new SqlConnection(connectionString);
+            using SqlConnection sql = new SqlConnection(connectionString);
             sql.Open();
-            SqlCommand sqlCommand = new SqlCommand("numcomment", sql);
+            using SqlCommand sqlCommand = new SqlCommand("numcomment", sql);
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.Parameters.AddWithValue("@maphim", maphim);
             var num = await sqlCommand.ExecuteReaderAsync();

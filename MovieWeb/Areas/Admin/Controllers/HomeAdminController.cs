@@ -13,7 +13,13 @@ namespace MovieWeb.Areas.Admin.Controllers
     [Authentication("Admin")]
     public class HomeAdminController : Controller
     {
-        MovieDbContext db = new MovieDbContext();
+        private readonly MovieDbContext db;
+
+        public HomeAdminController(MovieDbContext context)
+        {
+            db = context;
+        }
+
         public void anh()
         {
             ViewBag.Anh = HttpContext.Session.GetString("AnhDaiDien");

@@ -4,6 +4,11 @@ using MovieWeb.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 var ConnectString = builder.Configuration.GetConnectionString("MovieDbContext");
+if (string.IsNullOrWhiteSpace(ConnectString))
+{
+    throw new InvalidOperationException(
+        "Configure ConnectionStrings:MovieDbContext in appsettings or the ConnectionStrings__MovieDbContext environment variable.");
+}
 builder.Services.AddDbContext<MovieDbContext>(x => x.UseSqlServer(ConnectString));
 builder.Services.AddScoped<IPhimRepository, PhimRepository>();
 builder.Services.AddScoped<ITheLoaiRespository, TheLoaiRespository>();

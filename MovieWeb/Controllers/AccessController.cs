@@ -6,7 +6,13 @@ namespace MovieWeb.Controllers
 {
     public class AccessController : Controller
     {
-        MovieDbContext db = new MovieDbContext();
+        private readonly MovieDbContext db;
+
+        public AccessController(MovieDbContext context)
+        {
+            db = context;
+        }
+
         [HttpGet]
         public IActionResult Login()
         {

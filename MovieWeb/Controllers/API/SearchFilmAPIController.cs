@@ -9,7 +9,13 @@ namespace MovieWeb.Controllers.APIController
     [ApiController]
     public class SearchFilmController : ControllerBase
     {
-        MovieDbContext db = new MovieDbContext();
+        private readonly MovieDbContext db;
+
+        public SearchFilmController(MovieDbContext context)
+        {
+            db = context;
+        }
+
         [HttpGet()]
         public async Task<List<TPhim>> get(string name)
         {

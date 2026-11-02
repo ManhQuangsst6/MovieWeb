@@ -9,7 +9,13 @@ namespace MovieWeb.Areas.Admin.Controllers
     [Authentication("Admin")]
     public class UserController : Controller
     {
-        MovieDbContext db = new MovieDbContext();
+        private readonly MovieDbContext db;
+
+        public UserController(MovieDbContext context)
+        {
+            db = context;
+        }
+
         public void anh()
         {
             ViewBag.Anh = HttpContext.Session.GetString("AnhDaiDien");

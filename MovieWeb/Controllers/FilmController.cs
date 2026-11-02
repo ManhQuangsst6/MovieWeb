@@ -7,7 +7,13 @@ namespace WebPhimBTL.Controllers
 {
     public class FilmController : Controller
     {
-        private readonly MovieDbContext _dbphimContext = new MovieDbContext();
+        private readonly MovieDbContext _dbphimContext;
+
+        public FilmController(MovieDbContext context)
+        {
+            _dbphimContext = context;
+        }
+
         [HttpGet]
         //[Authentication("UserName")]
         public IActionResult InfoFilm(int filmCode)

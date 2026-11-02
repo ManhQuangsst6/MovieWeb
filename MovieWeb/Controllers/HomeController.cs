@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using MovieWeb.Models;
 using MovieWeb.ViewModels;
@@ -9,20 +10,22 @@ namespace MovieWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        MovieDbContext db = new MovieDbContext();
-        public HomeController(ILogger<HomeController> logger)
+
+        private readonly MovieDbContext db;
+
+        public HomeController(ILogger<HomeController> logger, MovieDbContext context)
         {
             _logger = logger;
+            db = context;
         }
 
         public IActionResult Index()
         {
-            string connectionString = "Data Source=PC\\ManhQuang;Initial Catalog=MovieDB1;Timeout=100;Integrated Security=True;Encrypt=False";
+            string connectionString = db.Database.GetConnectionString()!;
 
-            SqlConnection sql = new SqlConnection(connectionString);
+            using SqlConnection sql = new SqlConnection(connectionString);
             sql.Open();
-            SqlCommand sqlCommand = new SqlCommand(connectionString, sql);
-            sqlCommand.CommandText = "select * from moviewnew";
+            using SqlCommand sqlCommand = new SqlCommand("select * from moviewnew", sql);
             var lst = sqlCommand.ExecuteReader();
             List<Film> filmNew = new List<Film>();
             if (lst.HasRows)

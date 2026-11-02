@@ -7,7 +7,13 @@ namespace MovieWeb.Controllers.API
     [ApiController]
     public class TheLoaiController : ControllerBase
     {
-        MovieDbContext db = new MovieDbContext();
+        private readonly MovieDbContext db;
+
+        public TheLoaiController(MovieDbContext context)
+        {
+            db = context;
+        }
+
         [HttpGet("GetAll")]
         public List<TheLoai> GetAll()
         {

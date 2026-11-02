@@ -7,7 +7,13 @@ namespace MovieWeb.Areas.Admin.Controllers
     [ApiController]
     public class SearchAPIController : ControllerBase
     {
-        MovieDbContext db = new MovieDbContext();
+        private readonly MovieDbContext db;
+
+        public SearchAPIController(MovieDbContext context)
+        {
+            db = context;
+        }
+
         [HttpGet]
         public List<TPhim> SearchMovie(int? page, string q)
         {
