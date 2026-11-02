@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/LayoutCommon.cshtml";
 }
 <link href="~/css/stylesheet.css?v=1" rel="stylesheet" />
+<link href="~/css/film-share.css" rel="stylesheet" asp-append-version="true" />
+<script src="~/js/film-share.js" asp-append-version="true" defer></script>
 <div class="confirm">
     <h1>Thông báo</h1>
     <p>
@@ -50,13 +52,24 @@
                         </p>
                         <div class="movie-details-prime">
                             <ul>
-                                <li class="share"><a href="#"><i class="fas fa-share-alt"></i> Share</a></li>
+                                <li class="share">
+                                    <button type="button" id="share-film" class="film-share-button"
+                                            data-share-url="@Url.Action("InfoFilm", "Film", new { filmCode = Model.film.MaPhim })"
+                                            aria-describedby="film-share-status">
+                                        <i class="fas fa-share-alt" aria-hidden="true"></i> Chia sẻ
+                                    </button>
+                                </li>
                                 <li class="streaming">
                                     <h6>Prime Video</h6>
                                     <span>Streaming Channels</span>
                                 </li>
                                 <li class="watch"><a href="https://www.youtube.com/watch?v=R2gbPxeNk2E" class="btn popup-video"><i class="fas fa-play"></i> Watch Now</a></li>
                             </ul>
+                            <p id="film-share-status" class="film-share-status" role="status" aria-live="polite" aria-atomic="true"></p>
+                            <div id="film-share-manual" class="film-share-manual" hidden>
+                                <label for="film-share-url">Liên kết phim</label>
+                                <input type="text" id="film-share-url" readonly />
+                            </div>
                         </div>
                     </div>
                 </div>

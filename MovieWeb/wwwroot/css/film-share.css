@@ -1,0 +1,54 @@
+.movie-details-prime .film-share-button {
+    display: block;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #bcbcbc;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.movie-details-prime .film-share-button i {
+    display: block;
+    margin-bottom: 7px;
+    color: #fff;
+    font-size: 16px;
+}
+
+.movie-details-prime .film-share-button:hover {
+    color: #e4d804;
+}
+
+.movie-details-prime .film-share-button:focus-visible {
+    outline: 2px solid #e4d804;
+    outline-offset: 5px;
+}
+
+.movie-details-prime .film-share-button:disabled {
+    cursor: wait;
+    opacity: .6;
+}
+
+.movie-details-content .film-share-status:not(:empty),
+.film-share-manual {
+    max-width: 475px;
+    margin-top: 12px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.film-share-manual label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.film-share-manual input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #bcbcbc;
+    border-radius: 4px;
+    background: #242c38;
+    color: #fff;
+}
