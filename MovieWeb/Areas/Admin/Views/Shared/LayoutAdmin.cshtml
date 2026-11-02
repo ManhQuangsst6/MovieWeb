@@ -583,7 +583,7 @@ xpopup
     <script>
         $('.search-btn').click(() => {
             let value = $('#text-search').val()
-            let urlSearch = 'https://localhost:7103/api/searchAPI?q=' + value
+            let urlSearch = '/api/searchAPI?q=' + value
             str = '';
             $.ajax({
                 type: 'GET',

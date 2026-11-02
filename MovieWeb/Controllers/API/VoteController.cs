@@ -32,8 +32,8 @@ namespace MovieWeb.Controllers.API
             int cmt = 0;
             if (num.HasRows)
             {
-                num.Read();
-                cmt = num.GetInt32(0);
+                await num.ReadAsync();
+                cmt = num.IsDBNull(0) ? 0 : num.GetInt32(0);
             }
             return new StringResult(cmt.ToString());
         }

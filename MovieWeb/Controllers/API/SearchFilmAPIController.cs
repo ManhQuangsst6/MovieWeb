@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MovieWeb.Models;
 
@@ -17,13 +16,18 @@ namespace MovieWeb.Controllers.APIController
         }
 
         [HttpGet()]
-        public async Task<List<TPhim>> get(string name)
+        public async Task<List<TPhim>> Get(string name)
         {
-            var val = new SqlParameter("@name", System.Data.SqlDbType.NVarChar);
-            val.Value = name;
-            var list = await db.TPhims.FromSqlRaw("exec searchMovie @name", val).ToListAsync();
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return new List<TPhim>();
+            }
 
-            return list;
+            return await db.TPhims
+                .AsNoTracking()
+                .Where(movie => movie.TenPhim != null && movie.TenPhim.Contains(name))
+                .OrderBy(movie => movie.TenPhim)
+                .ToListAsync();
         }
     }
 }

@@ -6,7 +6,7 @@ ASP.NET Core MVC movie application targeting .NET 6, with SQL Server and bundled
 
 Install the .NET 6 SDK (validated with SDK 6.0.428/runtime 6.0.36) and SQL Server. No npm installation is needed for the bundled assets.
 
-Create a development database named `MovieDB1`, then import `MovieWeb/ttcm.sql` using SQL Server Management Studio or `sqlcmd`. The script is UTF-16 and includes schema, sample data, views, and stored procedures; run it **once against an empty development database**, not an existing database. The database must exist before importing it. Full-text search is required for the search functionality.
+Create a development database named `MovieDB1`, then import `MovieWeb/ttcm.sql` using SQL Server Management Studio or `sqlcmd`. The script is UTF-16 and includes schema, sample data, views, and stored procedures; run it **once against an empty development database**, not an existing database. The database must exist before importing it. Movie title search uses the configured database through Entity Framework and does not depend on the legacy full-text stored procedure.
 
 Configure the connection in your process environment or .NET user secrets. All controllers, EF queries, and direct SQL commands use the same `ConnectionStrings:MovieDbContext` setting. There is no machine-specific fallback.
 

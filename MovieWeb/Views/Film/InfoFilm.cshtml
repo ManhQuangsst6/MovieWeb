@@ -74,7 +74,7 @@
                     </div>
                 </div>
                 <div class="movie-details-btn">
-                    <a href="~/asset/img/poster/movie_details_img.jpg" class="download-btn" download="">Download <img src="fonts/download.svg" alt=""></a>
+                    <a href="~/asset/img/poster/movie_details_img.jpg" class="download-btn" download="">Download <img src="~/asset/fonts/download.svg" alt=""></a>
                 </div>
             </div>
         </div>
@@ -192,7 +192,7 @@
         LoadVote();
     }
     function LoadVote(){
-        url1 = 'https://localhost:7103/api/Vote?maphim=' + $('.movie-details-area').attr('film-code');
+        url1 = '/api/Vote?maphim=' + $('.movie-details-area').attr('film-code');
         $.ajax({
             type: 'GET',
             url: url1,
@@ -205,7 +205,7 @@
             }
         })
         if ($('.movie-details-area').attr('user-code')!='0'){
-            url1 = 'https://localhost:7103/api/Vote/user?maphim=' + $('.movie-details-area').attr('film-code')
+            url1 = '/api/Vote/user?maphim=' + $('.movie-details-area').attr('film-code')
                 + '&&user=' + $('.movie-details-area').attr('user-code');
             $.ajax({
                 type: 'GET',
@@ -246,7 +246,7 @@
             data1['result']='0';
         }
         else data1['result'] = '1'
-        let urlPUT = 'https://localhost:7103/api/Vote?maphim=' + $('.movie-details-area').attr('film-code') +
+        let urlPUT = '/api/Vote?maphim=' + $('.movie-details-area').attr('film-code') +
         '&&user=' + $('.movie-details-area').attr('user-code');
         $.ajax({
             type: 'PUT',
@@ -271,7 +271,7 @@
         })
     })
     function updateView(matap){
-        let urlPUT = 'https://localhost:7103/api/ViewMovie?matapphim=' + matap;
+        let urlPUT = '/api/ViewMovie?matapphim=' + matap;
         $.ajax({
             type: 'PUT',
             url: urlPUT,
@@ -291,7 +291,7 @@
         })
     }
     $('.send-question').click(()=>{
-        urlGet = 'https://localhost:7103/api/ChatGPT_API?query=' + $('.question').val()
+        urlGet = '/api/ChatGPT_API?query=' + $('.question').val()
         $.ajax({
             type: 'GET',
             url: urlGet,
@@ -308,7 +308,7 @@
     function loadComment(){
         
             str = '';
-        var url1 = 'https://localhost:7103/api/v1/commentapi?maphim=' + $('.movie-details-area').attr('film-code');
+        var url1 = '/api/v1/commentapi?maphim=' + $('.movie-details-area').attr('film-code');
             $.ajax({
                 type: 'GET',
                 url: url1,
@@ -343,7 +343,7 @@
                 }
         
         })
-        url2 = 'https://localhost:7103/api/v1/commentapi/numcmt?maphim=' + $('.movie-details-area').attr('film-code');
+        url2 = '/api/v1/commentapi/numcmt?maphim=' + $('.movie-details-area').attr('film-code');
         $.ajax({
             type: 'GET',
             url: url2,
@@ -355,7 +355,7 @@
                 alter(ex.responseText)
             }
         })
-        url3 = 'https://localhost:7103/api/ViewMovie?maphim=' + $('.movie-details-area').attr('film-code');
+        url3 = '/api/ViewMovie?maphim=' + $('.movie-details-area').attr('film-code');
         $.ajax({
             type: 'GET',
             url: url3,
@@ -398,7 +398,7 @@
         data1['ThoiGianCmt'] = `${year}-${month}-${day}T00:00:00`;
         $.ajax({
             type: 'POST',
-            url: 'https://localhost:7103/api/v1/commentapi',
+            url: '/api/v1/commentapi',
             headers: {
                 "Content-Type": "application/json"
             },
@@ -428,7 +428,7 @@
   }
     function updateCMT() {
         let id = $('.comment-edit').attr('id-edit')
-        let urlPUT = 'https://localhost:7103/api/v1/commentapi?cmtCode='+id;
+        let urlPUT = '/api/v1/commentapi?cmtCode='+id;
         data1 = {}
         data1['result'] = $('.text-msg').val();
         
@@ -474,7 +474,7 @@
 
 	}
 	$('#delete').click(() => {
-        let urlDelete = 'https://localhost:7103/api/v1/commentapi?cmtCode=' + idDel
+        let urlDelete = '/api/v1/commentapi?cmtCode=' + idDel
 
 		deletecomment(urlDelete)
 	})

@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="~/asset/css/style.css">
     <link rel="stylesheet" href="~/asset/css/responsive.css">
     <link href="~/popular-message-main/index.css" rel="stylesheet" />
-    <script src="~/popular-message-main/index.js"></script>
     <style>
        
         .footer-search{
@@ -299,6 +298,7 @@
     <!-- footer-area-end -->
     <!-- JS here -->
     <script src="~/asset/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="~/popular-message-main/index.js"></script>
     <script src="~/asset/js/popper.min.js"></script>
     <script src="~/asset/js/bootstrap.min.js"></script>
     <script src="~/asset/js/isotope.pkgd.min.js"></script>
@@ -336,7 +336,7 @@
     </style>
     <script>
         function Load(){
-            urlGet = 'https://localhost:7103/api/TheLoai/GetAll';
+            urlGet = '/api/TheLoai/GetAll';
             let str = ''
             $.ajax({
                 type: 'GET',
@@ -373,7 +373,7 @@
         }
         Load()
          $('.category').on('click','a',(e)=>{
-            urlGet = 'https://localhost:7103/api/TheLoai?matl=' + $(e.currentTarget).attr('id-category');
+            urlGet = '/api/TheLoai?matl=' + $(e.currentTarget).attr('id-category');
             let str = ''
             $.ajax({
                 type: 'GET',
@@ -460,7 +460,7 @@
             
         
         function UpdateLikeMovie(data, maphim) {
-            var urlPUT = 'https://localhost:7103/api/Vote?maphim=' + maphim + '&&tentk=' + $('body').attr('user-code')+"&&dg="+data;
+            var urlPUT = '/api/Vote?maphim=' + maphim + '&&tentk=' + $('body').attr('user-code')+"&&dg="+data;
             $.ajax({
                 type: 'PUT',
                 url: urlPUT,
